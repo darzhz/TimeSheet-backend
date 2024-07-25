@@ -46,10 +46,22 @@ public class UserService : IUserService
 
     }
 
+    // public Task<StandardResponce> AddUserInParts(Phase phase, User user)
+    // {
+    //     switch(phase){
+    //         case Phase.Academic:
+    //             try{
+    //                 _repository.UpdateUserAsyc(user);
+                    
+    //             }
+    //             break;
+    //     }
+    // }
+
     public string GenerateJwtToken(string userid)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("yourSecretKey");
+        var key = Encoding.ASCII.GetBytes("this is my super secret key that is exposed");
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(
@@ -68,7 +80,7 @@ public class UserService : IUserService
         return await _repository.GetAllUsersAsyc();
     }
 
-    public async Task<AuthResponce> PerformAuthentication(User user)
+    public async Task<AuthResponce> PerformAuthentication(UserLogin user)
     {
         AuthResponce resp = new();
         var UserfromDb = await _repository.GetUserByEmailAsyc(user.Email);
@@ -78,7 +90,9 @@ public class UserService : IUserService
                 resp.Token = null;
                 return resp;
             }else{
-                
+                resp.Message = "User LoggedIn successfully";
+                resp.Token = GenerateJwtToken(user.Email);
+                return resp;
             }
     }
 }

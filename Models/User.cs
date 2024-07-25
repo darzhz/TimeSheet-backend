@@ -18,8 +18,38 @@ public class User
     [Column("email")]
     public string? Email {get;set;}
     [Required]
-    [NotNull]
     [Column("password")]
     public string? Password {get;set;}
+    
+    [Column("firstname")]
+    public string? Fname {get;set;}
+
+    [Column("lastname")]
+    public string? Lname {get;set;}
+
+    [Column("maritalstatus")]
+    public string? Mstatus {get;set;}
+
+    [Column("pancardno")]
+    public string? PanNum {get;set;}
+
+    [Column("temp_address")]
+    public string? TempAddr{get;set;}
+
+    [Column("aadhar_no")]
+    public string? AadhaarNum{get;set;}
+
+    [Column("perm_address")]
+    public String? PermAddr{get;set;}
+
+    [Column("ph_no")]
+    public string? PhNum {get;set;}
+
+    [Column("gender")]
+    public string? Gender {get;set;}
+
+    [Column("blood_grp")]
+    public string? BldGrp {get;set;}
+
 
 }

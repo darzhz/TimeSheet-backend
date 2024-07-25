@@ -16,9 +16,10 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public Task AuthenticateUser(User user)
+    public async Task<IEnumerable<User>> GetAllIncompleteUsers()
     {
-        throw new NotImplementedException();
+        //findiing null elements test cheyth nokkk
+        return await _context.UsersEntity.Where(u=>u.BldGrp == null).ToListAsync();
     }
 
     public async Task<IEnumerable<User>> GetAllUsersAsyc()
@@ -40,4 +41,9 @@ public class UserRepository : IUserRepository
         return await _context.UsersEntity.FindAsync(id);
     }
 
+    public async Task UpdateUserAsyc(User user)
+    {
+          _context.UsersEntity.Update(user);
+          await _context.SaveChangesAsync();
+    }
 }
