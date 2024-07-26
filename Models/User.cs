@@ -51,5 +51,8 @@ public class User
     [Column("blood_grp")]
     public string? BldGrp {get;set;}
 
-
+    public static implicit operator Task<object>(User v)
+    {
+        throw new NotImplementedException();
+    }
 }

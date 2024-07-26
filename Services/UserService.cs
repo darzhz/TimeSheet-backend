@@ -15,32 +15,15 @@ public class UserService : IUserService
         _repository = repository;
     }
 
-    public async Task<StandardResponce> AddUserAsyc(User user)
+    public async Task<bool> CheckUserExists(User user)
     {
-        StandardResponce resp = new();
         try
         {
             var existingUser = await _repository.GetUserByEmailAsyc(user.Email);
-            Console.WriteLine(existingUser);
-            if (existingUser == null)
-            {
-                await _repository.AddUserAsyc(user);
-                resp.Message = "User added successfully added";
-                resp.User = user;
-                return resp;
-            }
-            else
-            {
-                resp.Message = "User Already Exists";
-                resp.User = null;
-                return resp;
-            }
+            return existingUser != null?true:false;
         }
         catch (System.Exception)
         {
-            resp.Message = "something went wrong at Db while inserting user";
-            resp.User = user;
-            return resp;
             throw;
         }
 
@@ -52,8 +35,14 @@ public class UserService : IUserService
         switch(phase){
             case Phase.Personal:
                 try{
-                    await _repository.UpdateUserAsyc(user);
-                    resp.Message = $"successfully added user details in {phase}";
+                    if(await CheckUserExists(user)){
+                         await _repository.UpdateUserAsyc(user);
+                         resp.Message = $"successfully Updated user details in {phase}";
+
+                    }else{
+                         await _repository.AddUserAsyc(user);
+                        resp.Message = $"successfully added user details in {phase}";
+                    }
                     resp.User = user;
                 }catch(Exception ex){
                     resp.Message = ex.Message;
@@ -85,11 +74,6 @@ public class UserService : IUserService
         return tokenHandler.WriteToken(token);
     }
 
-    public async Task<IEnumerable<User>> GetAllUsersAsyc()
-    {
-        return await _repository.GetAllUsersAsyc();
-    }
-
     public async Task<AuthResponce> PerformAuthentication(UserLogin user)
     {
         AuthResponce resp = new();
@@ -104,5 +88,11 @@ public class UserService : IUserService
                 resp.Token = GenerateJwtToken(user.Email);
                 return resp;
             }
+    }
+
+    public Task<StandardResponce> GetUnfinished()
+    {
+        //#TODO get previous partially complete changes
+        throw new NotImplementedException();
     }
 }

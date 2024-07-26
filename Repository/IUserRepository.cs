@@ -1,4 +1,5 @@
 ﻿using TimeSheet.Models;
+using TimeSheet.Models.Payloads;
 
 namespace TimeSheet.Repository;
 
@@ -10,5 +11,5 @@ public interface IUserRepository
     Task<IEnumerable<User>> GetAllIncompleteUsers();
     Task AddUserAsyc(User user);
 
-    Task UpdateUserAsyc(User user);
+    Task<User?> UpdateUserAsyc(User user);
 }

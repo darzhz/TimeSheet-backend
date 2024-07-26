@@ -14,35 +14,13 @@ public class UserController : ControllerBase
         _userService = UserService;
     }
 
-    [Authorize]
-    [HttpGet]
-    [Route("/api/users")]
-    public async Task<IActionResult> GetAll()
-    {
-        var users = await _userService.GetAllUsersAsyc();
-        return Ok(users);
-    }
-    [HttpPost]
-    [Route("/api/createUser")]
-    public async Task<IActionResult> AddUser(User user)
-    {
-        var resp = await _userService.AddUserAsyc(user);
-        return CreatedAtAction(nameof(AddUser), resp);
-    }
-
     [HttpPost]
     [Route("/api/adduserinprogression{phase}")]
     public async Task<StandardResponce> AddUserInProgression(Phase phase, [FromBody] User user)
     {
         return await _userService.AddUserInParts(phase,user);
-    }
+    }    // #TODO ADD CONTROLLER TO UPDATE IN PROGRESSION
 
-    [HttpPut]
-    [Route("/api/adduserinprogression{phase}")]
-    public async Task<StandardResponce> UpdateUserInProgression(Phase phase, [FromBody] User user)
-    {
-        return await _userService.AddUserInParts(phase,user);
-    }
 
     [HttpPost]
     [Route("/api/login")]
@@ -51,6 +29,13 @@ public class UserController : ControllerBase
         var resp = await _userService.PerformAuthentication(user);
         return CreatedAtAction(nameof(LoginUser), resp);
     }
+
+    // [HttpGet]
+    // [Route("/api/getUnfinished")]
+    // public async Task<IActionResult> GetUnFinished()
+    // {
+    //     var resp = await
+    // }
 
 }
 

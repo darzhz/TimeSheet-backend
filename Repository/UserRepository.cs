@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
 using TimeSheet.Models;
+using TimeSheet.Models.Payloads;
 
 namespace TimeSheet.Repository;
 
@@ -18,7 +20,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllIncompleteUsers()
     {
-        //findiing null elements test cheyth nokkk
+        //#TODO findiing null elements test cheyth nokkk
         return await _context.UsersEntity.Where(u=>u.BldGrp == null).ToListAsync();
     }
 
@@ -41,9 +43,29 @@ public class UserRepository : IUserRepository
         return await _context.UsersEntity.FindAsync(id);
     }
 
-    public async Task UpdateUserAsyc(User user)
+    public async Task<User?> UpdateUserAsyc(User user)
     {
-          _context.UsersEntity.Update(user);
-          await _context.SaveChangesAsync();
+        try{
+            User UserFromDb =  await _context.UsersEntity.Where(us => us.Email == user.Email).SingleAsync();
+            if(UserFromDb == null){
+                return null;
+            }else{
+                UserFromDb.Fname = user.Fname;
+                UserFromDb.Lname = user.Lname;
+                UserFromDb.Mstatus = user.Mstatus;
+                UserFromDb.PanNum = user.PanNum;
+                UserFromDb.TempAddr = user.TempAddr;
+                UserFromDb.AadhaarNum = user.AadhaarNum;
+                UserFromDb.PermAddr = user.PermAddr;
+                UserFromDb.PhNum = user.PhNum;
+                UserFromDb.Gender = user.Gender;
+                UserFromDb.BldGrp = user.BldGrp;
+                await _context.SaveChangesAsync();
+                return UserFromDb;
+            }
+        }catch(DbException ){
+            return null;
+        }
+
     }
 }
