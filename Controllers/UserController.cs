@@ -32,10 +32,10 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("/api/adduserinprogression{phase}")]
-    // public async Task<IActionResult> AddUserInProgression(Phase phase, [FromBody] User user)
-    // {
-
-    // }
+    public async Task<StandardResponce> AddUserInProgression(Phase phase, [FromBody] User user)
+    {
+        return await _userService.AddUserInParts(phase,user);
+    }
 
     [HttpPost]
     [Route("/api/login")]

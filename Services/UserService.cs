@@ -46,17 +46,27 @@ public class UserService : IUserService
 
     }
 
-    // public Task<StandardResponce> AddUserInParts(Phase phase, User user)
-    // {
-    //     switch(phase){
-    //         case Phase.Academic:
-    //             try{
-    //                 _repository.UpdateUserAsyc(user);
-                    
-    //             }
-    //             break;
-    //     }
-    // }
+    public async Task<StandardResponce> AddUserInParts(Phase phase, User user)
+    {
+        StandardResponce resp = new();
+        switch(phase){
+            case Phase.Personal:
+                try{
+                    await _repository.UpdateUserAsyc(user);
+                    resp.Message = $"successfully added user details in {phase}";
+                    resp.User = user;
+                }catch(Exception ex){
+                    resp.Message = ex.Message;
+                    resp.User = null;
+                }
+            break;
+            default:
+                resp.Message = "That Field doesnot exist in the system please re verify";
+                resp.User = null;
+            break;
+        }
+        return  resp;
+    }
 
     public string GenerateJwtToken(string userid)
     {
