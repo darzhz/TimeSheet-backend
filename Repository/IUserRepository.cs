@@ -12,4 +12,6 @@ public interface IUserRepository
     Task AddUserAsyc(User user);
 
     Task<User?> UpdateUserAsyc(User user);
+
+    Task<User?> GetLastPartialEdit();
 }

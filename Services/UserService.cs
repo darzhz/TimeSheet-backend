@@ -90,9 +90,13 @@ public class UserService : IUserService
             }
     }
 
-    public Task<StandardResponce> GetUnfinished()
+    public async Task<StandardResponce> GetUnfinished()
     {
-        //#TODO get previous partially complete changes
-        throw new NotImplementedException();
+       var user =  await _repository.GetLastPartialEdit();
+       StandardResponce resp = new();
+       resp.User = user;
+       resp.Message="previous Partial";
+       return resp;
+
     }
 }

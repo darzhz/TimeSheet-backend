@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     public async Task<StandardResponce> AddUserInProgression(Phase phase, [FromBody] User user)
     {
         return await _userService.AddUserInParts(phase,user);
-    }    // #TODO ADD CONTROLLER TO UPDATE IN PROGRESSION
+    } 
 
 
     [HttpPost]
@@ -30,12 +30,12 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(LoginUser), resp);
     }
 
-    // [HttpGet]
-    // [Route("/api/getUnfinished")]
-    // public async Task<IActionResult> GetUnFinished()
-    // {
-    //     var resp = await
-    // }
+    [HttpGet]
+    [Route("/api/getUnfinished")]
+    public async Task<StandardResponce> GetUnFinished()
+    {
+        return await _userService.GetUnfinished();
+    }
 
 }
 

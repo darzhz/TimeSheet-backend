@@ -68,4 +68,13 @@ public class UserRepository : IUserRepository
         }
 
     }
+
+    public async Task<User?> GetLastPartialEdit(){
+        try{
+            User UserFromDb =  await _context.UsersEntity.Where(us => us.Fname == null || us.Mstatus == null || us.PanNum == null || us.TempAddr == null || us.AadhaarNum == null || us.PermAddr == null || us.PhNum == null || us.Gender == null || us.BldGrp == null).SingleAsync();
+            return UserFromDb;
+        }catch(DbException){
+            return null;
+        }
+    }
 }
