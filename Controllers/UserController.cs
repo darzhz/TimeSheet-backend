@@ -37,6 +37,13 @@ public class UserController : ControllerBase
         return await _userService.AddUserInParts(phase,user);
     }
 
+    [HttpPut]
+    [Route("/api/adduserinprogression{phase}")]
+    public async Task<StandardResponce> UpdateUserInProgression(Phase phase, [FromBody] User user)
+    {
+        return await _userService.AddUserInParts(phase,user);
+    }
+
     [HttpPost]
     [Route("/api/login")]
     public async Task<IActionResult> LoginUser(UserLogin user)
