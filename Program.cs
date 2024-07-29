@@ -31,12 +31,20 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
+    var issuer = builder.Configuration["Jwt:Issuer"];
+    var audience = builder.Configuration["Jwt:Audience"];
+    var key = builder.Configuration["Jwt:Key"];
+
+    if (string.IsNullOrEmpty(key))
+    {
+        throw new InvalidOperationException("JWT Key is not configured.");
+    }
     o.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = issuer,
+        ValidAudience = audience,
         IssuerSigningKey = new SymmetricSecurityKey
-        (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        (Encoding.UTF8.GetBytes(key)),
         ValidateIssuer = false,
         ValidateAudience = false,
         ValidateLifetime = false,

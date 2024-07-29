@@ -11,15 +11,11 @@ public class User
     [Column("user_id")]
     public int UserId{get;set;}
     [Required]
-    [Column("username")]
-    public string? UserName {get;set;}
-    [Required]
     [NotNull]
     [Column("email")]
     public string? Email {get;set;}
-    [Required]
     [Column("password")]
-    public string? Password {get;set;}
+    public string? Password {get;set;} = "123";
     
     [Column("firstname")]
     public string? Fname {get;set;}

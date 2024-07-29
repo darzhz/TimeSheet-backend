@@ -84,9 +84,15 @@ public class UserService : IUserService
                 resp.Token = null;
                 return resp;
             }else{
+                if(UserfromDb.Password == user.Password){
                 resp.Message = "User LoggedIn successfully";
                 resp.Token = GenerateJwtToken(user.Email);
                 return resp;
+                }else{
+                resp.Message = "Invalid Email or Password";
+                resp.Token = null;
+                return resp;
+                }
             }
     }
 

@@ -15,7 +15,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/adduserinprogression{phase}")]
+    [Route("/api/adduserinprogression/{phase}")]
     public async Task<StandardResponce> AddUserInProgression(Phase phase, [FromBody] User user)
     {
         return await _userService.AddUserInParts(phase,user);
@@ -27,7 +27,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> LoginUser(UserLogin user)
     {
         var resp = await _userService.PerformAuthentication(user);
-        return CreatedAtAction(nameof(LoginUser), resp);
+        return Ok(resp);
     }
 
     [HttpGet]
