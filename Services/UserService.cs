@@ -36,12 +36,12 @@ public class UserService : IUserService
             case Phase.Personal:
                 try{
                     if(await CheckUserExists(user)){
-                         await _repository.UpdateUserAsyc(user);
-                         resp.Message = $"successfully Updated user details in {phase}";
+                        //  await _repository.UpdateUserAsyc(user);
+                         resp.Message = $"Email Already Exists";
 
                     }else{
                          await _repository.AddUserAsyc(user);
-                        resp.Message = $"successfully added user details in {phase}";
+                         resp.Message = $"successfully added user details";
                     }
                     resp.User = user;
                 }catch(Exception ex){
@@ -94,15 +94,5 @@ public class UserService : IUserService
                 return resp;
                 }
             }
-    }
-
-    public async Task<StandardResponce> GetUnfinished()
-    {
-       var user =  await _repository.GetLastPartialEdit();
-       StandardResponce resp = new();
-       resp.User = user;
-       resp.Message="previous Partial";
-       return resp;
-
     }
 }

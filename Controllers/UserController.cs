@@ -30,12 +30,5 @@ public class UserController : ControllerBase
         return Ok(resp);
     }
 
-    [HttpGet]
-    [Route("/api/getUnfinished")]
-    public async Task<StandardResponce> GetUnFinished()
-    {
-        return await _userService.GetUnfinished();
-    }
-
 }
 

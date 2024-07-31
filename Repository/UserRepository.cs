@@ -18,11 +18,6 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<User>> GetAllIncompleteUsers()
-    {
-        //#TODO findiing null elements test cheyth nokkk
-        return await _context.UsersEntity.Where(u=>u.BldGrp == null).ToListAsync();
-    }
 
     public async Task<IEnumerable<User>> GetAllUsersAsyc()
     {
@@ -50,6 +45,7 @@ public class UserRepository : IUserRepository
             if(UserFromDb == null){
                 return null;
             }else{
+                UserFromDb.Email = user.Email;
                 UserFromDb.Fname = user.Fname;
                 UserFromDb.Lname = user.Lname;
                 UserFromDb.Mstatus = user.Mstatus;
@@ -68,30 +64,4 @@ public class UserRepository : IUserRepository
         }
 
     }
-
-   
-   public async Task<User?> GetLastPartialEdit()
-{
-    try
-    {
-        var userFromDb = await _context.UsersEntity
-            .Where(us => string.IsNullOrEmpty(us.Fname) ||
-                         string.IsNullOrEmpty(us.Mstatus) ||
-                         string.IsNullOrEmpty(us.PanNum) ||
-                         string.IsNullOrEmpty(us.TempAddr) ||
-                         string.IsNullOrEmpty(us.AadhaarNum) ||
-                         string.IsNullOrEmpty(us.PermAddr) ||
-                         string.IsNullOrEmpty(us.PhNum) ||
-                         string.IsNullOrEmpty(us.Gender) ||
-                         string.IsNullOrEmpty(us.BldGrp))
-            .FirstOrDefaultAsync();
-
-        return userFromDb;
-    }
-    catch (DbException)
-    {
-        return null;
-    }
-}
-
 }
