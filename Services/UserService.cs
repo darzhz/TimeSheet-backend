@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 
 namespace TimeSheet.Services;
 
@@ -38,15 +39,18 @@ public class UserService : IUserService
                     if(await CheckUserExists(user)){
                         //  await _repository.UpdateUserAsyc(user);
                          resp.Message = $"Email Already Exists";
+                         resp.status = HttpStatusCode.UnprocessableEntity;
 
                     }else{
                          await _repository.AddUserAsyc(user);
                          resp.Message = $"successfully added user details";
+                         resp.status = HttpStatusCode.OK;
                     }
                     resp.User = user;
                 }catch(Exception ex){
                     resp.Message = ex.Message;
                     resp.User = null;
+                    resp.status = HttpStatusCode.ServiceUnavailable;
                 }
             break;
             default:
