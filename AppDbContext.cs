@@ -10,4 +10,5 @@ public class AppDbContext : DbContext
     }
     public DbSet<User> UsersEntity {get;set;}
     public DbSet<QualificationModel> QualificationEntity {get;set;}
+    public DbSet<QualificationDetails> QualificationDetailsEntity {get;set;}
 }

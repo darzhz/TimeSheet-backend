@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheet.Models;
+using TimeSheet.Models.Payload;
 using TimeSheet.Services;
 
 namespace TimeSheet.Controllers;
@@ -29,6 +30,18 @@ public class UserController : ControllerBase
         var resp = await _userService.PerformAuthentication(user);
         return Ok(resp);
     }
+
+    [HttpPost]
+    [Route("/api/EducationalDetails")]
+    public async Task<StandardResponce> PostEducationDetails(QualificationDetails Qd){
+       return  await _userService.AddQualificationDetails(Qd);
+    }
+    [HttpGet]
+    [Route("/api/EducationalDetails/{userid}")]
+    public async Task<StandardListResponce> GetEducationDetails(int userid){
+       return  await _userService.GetQualificationDetails(userid);
+    }
+    
 
 }
 

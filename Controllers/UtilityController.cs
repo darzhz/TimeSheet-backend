@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using TimeSheet.Models;
 using TimeSheet.Services;
 
 namespace TimeSheet.Controllers;
@@ -18,8 +20,8 @@ public class UtilityController : ControllerBase
 
     [HttpPost]
     [Route("api/listdeciplines")]
-    public IActionResult ReturnDeciplinesBasedOnQualification(string qualification){
-        return Accepted(_util.ReturnAllDeciplines(qualification));
+    public IActionResult ReturnDeciplinesBasedOnQualification([FromBody] QualificationInput q){
+            return Accepted(_util.ReturnAllDeciplines(q.Qualification));
     }
 
 }

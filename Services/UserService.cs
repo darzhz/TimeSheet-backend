@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
-
+using TimeSheet.Models.Payload;
 namespace TimeSheet.Services;
 
 public class UserService : IUserService
@@ -60,6 +60,18 @@ public class UserService : IUserService
         }
         return  resp;
     }
+    public async Task<StandardResponce> AddQualificationDetails(QualificationDetails qa) {
+        StandardResponce resp = new();
+        try{
+                await _repository.AddQualificationDetails(qa);
+                resp.Message = "Successfully added Qualification";
+                resp.status = HttpStatusCode.OK;
+        }catch(Exception ex){
+                resp.Message = $"Something Went Wrong {ex.InnerException?.Message}";
+                resp.status = HttpStatusCode.BadGateway;
+        }
+        return resp;
+    }
 
     public string GenerateJwtToken(string userid)
     {
@@ -99,4 +111,21 @@ public class UserService : IUserService
                 }
             }
     }
+     public async Task<StandardListResponce> GetQualificationDetails(int userid){
+        var payload = new StandardListResponce();
+        var data = await _repository.GetQualificationDetails(userid);
+        if (data != null && data.Count != 0)
+            {
+                payload.Data = data;
+                payload.Message = "Successfully retrieved data";
+                payload.Status = System.Net.HttpStatusCode.OK;
+            }
+            else
+            {
+                payload.Message = "No data found";
+                payload.Status = System.Net.HttpStatusCode.NoContent;
+            }
+            return payload;    
+     }
+
 }

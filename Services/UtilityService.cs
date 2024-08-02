@@ -31,7 +31,7 @@ public class UtilityService : IUtilityService
                 payload.Status = System.Net.HttpStatusCode.NoContent;
             }
         }
-        catch (Exception ex)
+        catch 
         {
             // #TODO add logger service here
             payload.Message = "An error occurred while retrieving data";
@@ -57,7 +57,7 @@ public class UtilityService : IUtilityService
                 payload.Status = System.Net.HttpStatusCode.NoContent;
             }
 
-        }catch(Exception ex){
+        }catch{
             payload.Message = "An error occurred while retrieving data";
             payload.Status = System.Net.HttpStatusCode.InternalServerError;
         }
