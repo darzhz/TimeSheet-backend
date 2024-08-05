@@ -129,5 +129,28 @@ public class UserService : IUserService
             }
             return payload;    
      }
+      public async Task<StandardResponce> AddUserExp(PreviousExperience ex)
+    {
+        StandardResponce resp = new();
+
+        try
+        {
+            await _repository.AddUserExp(ex);
+            resp.Message = $"Previous Expericence from {ex.CompanyName} Added";
+            resp.status = HttpStatusCode.UnprocessableEntity;
+            return resp;
+        }catch (Exception){
+            resp.Message = "duplicate values";
+            resp.User = null;
+            resp.status = HttpStatusCode.MethodNotAllowed;
+            return resp;
+        }
+    }
+
+
+    public List<PreviousExperience>? GetPrevExp(int id)
+    {
+        return  _repository.GetPrevExp(id);
+     }
 
 }
