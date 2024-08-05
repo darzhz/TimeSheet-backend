@@ -56,6 +56,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IUtilityRepository,UtilityRepository>();
+builder.Services.AddScoped<IUtilityService,UtilityService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

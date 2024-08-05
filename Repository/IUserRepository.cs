@@ -1,5 +1,4 @@
 ﻿using TimeSheet.Models;
-using TimeSheet.Models.Payloads;
 
 namespace TimeSheet.Repository;
 
@@ -12,5 +11,8 @@ public interface IUserRepository
     Task<User?> UpdateUserAsyc(User user);
     Task AddUserExp(PreviousExperience pre);
     public List<PreviousExperience>? GetPrevExp(int id);
+    Task AddQualificationDetails(QualificationDetails qa);
+    Task<List<QualificationDetails?>?> GetQualificationDetails(int userid);
+
 
 }

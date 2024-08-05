@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using TimeSheet.Models;
-using TimeSheet.Models.Payloads;
 
 
 
@@ -14,13 +13,19 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    
+    public async Task AddQualificationDetails(QualificationDetails qa)
+    {
+         _context.QualificationDetailsEntity.Add(qa);
+         await _context.SaveChangesAsync();
+    }
+    // public async Task<QualificationDetails> Get
 
     public async Task AddUserAsyc(User user)
     {
         _context.UsersEntity.Add(user);
         await _context.SaveChangesAsync();
     }
+    
 
 
     public async Task<IEnumerable<User>> GetAllUsersAsyc()
@@ -67,6 +72,10 @@ public class UserRepository : IUserRepository
             return null;
         }
 
+    }
+     public async Task<List<QualificationDetails?>?> GetQualificationDetails(int userid)
+    {
+        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid).ToListAsync<QualificationDetails?>();
     }
 //fetch data and move to database
 public async Task AddUserExp(PreviousExperience pre)
