@@ -1,7 +1,9 @@
 ﻿using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using TimeSheet.Models;
-
+using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
+using TimeSheet.Models;
 
 
 namespace TimeSheet.Repository;
@@ -77,8 +79,7 @@ public class UserRepository : IUserRepository
     {
         return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid).ToListAsync<QualificationDetails?>();
     }
-//fetch data and move to database
-public async Task AddUserExp(PreviousExperience pre)
+    public async Task AddUserExp(PreviousExperience pre)
     {
         _context.Previous.Add(pre);
         await _context.SaveChangesAsync();
@@ -89,7 +90,11 @@ public async Task AddUserExp(PreviousExperience pre)
         var prex = _context.Previous.Where(p => p.Userid == id).ToList<PreviousExperience>();
         return prex;
     }
-
 }
+
+
+
+
+
 
 
