@@ -5,6 +5,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
+using System.Data;
+using System.Data.Common;
 
 namespace TimeSheet.Services;
 
@@ -21,7 +23,7 @@ public class UserService : IUserService
         try
         {
             var existingUser = await _repository.GetUserByEmailAsyc(user.Email);
-            return existingUser != null?true:false;
+            return existingUser != null ? true : false;
         }
         catch (System.Exception)
         {
@@ -33,32 +35,39 @@ public class UserService : IUserService
     public async Task<StandardResponce> AddUserInParts(Phase phase, User user)
     {
         StandardResponce resp = new();
-        switch(phase){
+        switch (phase)
+        {
             case Phase.Personal:
-                try{
-                    if(await CheckUserExists(user)){
+                try
+                {
+                    if (await CheckUserExists(user))
+                    {
                         //  await _repository.UpdateUserAsyc(user);
-                         resp.Message = $"Email Already Exists";
-                         resp.status = HttpStatusCode.UnprocessableEntity;
+                        resp.Message = $"Email Already Exists";
+                        resp.status = HttpStatusCode.UnprocessableEntity;
 
-                    }else{
-                         await _repository.AddUserAsyc(user);
-                         resp.Message = $"successfully added user details";
-                         resp.status = HttpStatusCode.OK;
+                    }
+                    else
+                    {
+                        await _repository.AddUserAsyc(user);
+                        resp.Message = $"successfully added user details";
+                        resp.status = HttpStatusCode.OK;
                     }
                     resp.User = user;
-                }catch(Exception ex){
+                }
+                catch (Exception ex)
+                {
                     resp.Message = ex.Message;
                     resp.User = null;
                     resp.status = HttpStatusCode.ServiceUnavailable;
                 }
-            break;
+                break;
             default:
                 resp.Message = "That Field doesnot exist in the system please re verify";
                 resp.User = null;
-            break;
+                break;
         }
-        return  resp;
+        return resp;
     }
 
     public string GenerateJwtToken(string userid)
@@ -83,20 +92,49 @@ public class UserService : IUserService
         AuthResponce resp = new();
         var UserfromDb = await _repository.GetUserByEmailAsyc(user.Email);
         if (UserfromDb == null)
+        {
+            resp.Message = "Invalid Email or Password";
+            resp.Token = null;
+            return resp;
+        }
+        else
+        {
+            if (UserfromDb.Password == user.Password)
+            {
+                resp.Message = "User LoggedIn successfully";
+                resp.Token = GenerateJwtToken(user.Email);
+                return resp;
+            }
+            else
             {
                 resp.Message = "Invalid Email or Password";
                 resp.Token = null;
                 return resp;
-            }else{
-                if(UserfromDb.Password == user.Password){
-                resp.Message = "User LoggedIn successfully";
-                resp.Token = GenerateJwtToken(user.Email);
-                return resp;
-                }else{
-                resp.Message = "Invalid Email or Password";
-                resp.Token = null;
-                return resp;
-                }
             }
+        }
+    }
+
+    public async Task<StandardResponce> AddUserExp(PreviousExperience ex)
+    {
+        StandardResponce resp = new();
+
+        try
+        {
+            await _repository.AddUserExp(ex);
+            resp.Message = $"Previous Expericence from {ex.CompanyName} Added";
+            resp.status = HttpStatusCode.UnprocessableEntity;
+            return resp;
+        }catch (Exception){
+            resp.Message = "duplicate values";
+            resp.User = null;
+            resp.status = HttpStatusCode.MethodNotAllowed;
+            return resp;
+        }
+    }
+
+
+    public List<PreviousExperience>? GetPrevExp(int id)
+    {
+        return  _repository.GetPrevExp(id);
     }
 }

@@ -10,5 +10,7 @@ public interface IUserRepository
     Task<IEnumerable<User>> GetAllUsersAsyc();
     Task AddUserAsyc(User user);
     Task<User?> UpdateUserAsyc(User user);
+    Task AddUserExp(PreviousExperience pre);
+    public List<PreviousExperience>? GetPrevExp(int id);
 
 }

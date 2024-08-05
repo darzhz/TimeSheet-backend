@@ -7,4 +7,6 @@ public interface IUserService
     string GenerateJwtToken(String userid);
     Task<AuthResponce> PerformAuthentication(UserLogin user);
     Task<StandardResponce> AddUserInParts(Phase phase,User user);
+    Task<StandardResponce> AddUserExp(PreviousExperience ex);
+    List<PreviousExperience>? GetPrevExp(int id);
 }

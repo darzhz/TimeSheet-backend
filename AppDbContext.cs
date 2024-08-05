@@ -9,4 +9,5 @@ public class AppDbContext : DbContext
     {
     }
     public DbSet<User> UsersEntity {get;set;}
+    public DbSet<PreviousExperience> Previous {get;set;}
 }

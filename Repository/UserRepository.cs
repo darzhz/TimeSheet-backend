@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using TimeSheet.Models;
 using TimeSheet.Models.Payloads;
 
+
+
 namespace TimeSheet.Repository;
 
 public class UserRepository : IUserRepository
@@ -11,6 +13,8 @@ public class UserRepository : IUserRepository
     public UserRepository(AppDbContext context){
         _context = context;
     }
+
+    
 
     public async Task AddUserAsyc(User user)
     {
@@ -64,4 +68,19 @@ public class UserRepository : IUserRepository
         }
 
     }
+//fetch data and move to database
+public async Task AddUserExp(PreviousExperience pre)
+    {
+        _context.Previous.Add(pre);
+        await _context.SaveChangesAsync();
+    }
+
+    public List<PreviousExperience>? GetPrevExp(int id)
+    {
+        var prex = _context.Previous.Where(p => p.Userid == id).ToList<PreviousExperience>();
+        return prex;
+    }
+
 }
+
+
