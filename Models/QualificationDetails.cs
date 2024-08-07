@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TimeSheet.Models;
 
@@ -25,9 +26,11 @@ public class QualificationDetails
     public int? YearOfPassing {get;set;}
 
     [Column("percentage")]
-    public float? Percentage {get;set;}
+    [AllowNull]
+    public float? Percentage {get;set;} = null;
 
     [Column("cgpa")]
-    public float? Cgpa {get;set;}
+    [AllowNull]
+    public float? Cgpa {get;set;} = null;
     
 }

@@ -10,9 +10,9 @@ public interface IUserRepository
     Task AddUserAsyc(User user);
     Task<User?> UpdateUserAsyc(User user);
     Task AddUserExp(PreviousExperience pre);
-    public List<PreviousExperience>? GetPrevExp(int id);
+    List<PreviousExperience>? GetPrevExp(int id);
     Task AddQualificationDetails(QualificationDetails qa);
     Task<List<QualificationDetails?>?> GetQualificationDetails(int userid);
-
+    PreviousExperience? UpdatePreviousExp(PreviousExperience prev);
 
 }

@@ -1,9 +1,6 @@
 ﻿using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using TimeSheet.Models;
-using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
-using TimeSheet.Models;
 
 
 namespace TimeSheet.Repository;
@@ -47,6 +44,27 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetUserByIdAsyc(int id)
     {
         return await _context.UsersEntity.FindAsync(id);
+    }
+    // #TODO  duplicate data is allowed in educational qualification
+    public PreviousExperience? UpdatePreviousExp(PreviousExperience prev){
+        try
+        {
+            var PrexFromDb = _context.Previous.Find(prev.Id);
+            if(PrexFromDb == null){
+                return null;
+            }else{
+                PrexFromDb.CompanyName = prev.CompanyName;
+                PrexFromDb.Designation = prev.Designation;
+                PrexFromDb.LastDate = prev.LastDate;
+                PrexFromDb.StartDate = prev.StartDate;
+                _context.SaveChanges();
+                return PrexFromDb;
+            }
+        }
+        catch (System.Exception)
+        {
+            return null;
+        }
     }
 
     public async Task<User?> UpdateUserAsyc(User user)

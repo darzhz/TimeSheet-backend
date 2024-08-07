@@ -49,17 +49,17 @@ public class UserController : ControllerBase
         return await _userService.AddUserExp(preexp);
     }
 
-    // [HttpGet("getpexp")]
-    // public Task<IEnumerable>getExp()
-    // {
-    //     return _userService.getExp();
-    // }
-
     [HttpGet("/api/GetPrevExp/{id}")]
     public List<PreviousExperience>? GetPrevExp(int id)
     {
 
         return _userService.GetPrevExp(id);
+    }
+
+    [HttpPut]
+    [Route("/api/preexp")]
+    public PreviousExperienceEditResponse UpdatePreviousExperience(PreviousExperience prex){
+        return _userService.UpdatePreviousExp(prex);
     }
 }
 
