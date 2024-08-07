@@ -7,8 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using TimeSheet.Models.Payload;
 namespace TimeSheet.Services;
-using System.Data;
-using System.Data.Common;
+
 
 public class UserService : IUserService
 {
@@ -140,7 +139,7 @@ public class UserService : IUserService
             resp.status = HttpStatusCode.UnprocessableEntity;
             return resp;
         }catch (Exception){
-            resp.Message = "duplicate values";
+            resp.Message = "Experience Already Exists";
             resp.User = null;
             resp.status = HttpStatusCode.MethodNotAllowed;
             return resp;
@@ -151,6 +150,27 @@ public class UserService : IUserService
     public List<PreviousExperience>? GetPrevExp(int id)
     {
         return  _repository.GetPrevExp(id);
-     }
+    }
+    public PreviousExperienceEditResponse UpdatePreviousExp(PreviousExperience pre){
+        PreviousExperienceEditResponse resp = new ();
+        try
+        {
+            var PreviousEx = _repository.UpdatePreviousExp(pre);
+            if(PreviousEx != null){
+                resp.Message = "Successfully Updated Experience ";
+                resp.UpdatedExperience = PreviousEx;
+                resp.Status = HttpStatusCode.OK;
+            }else{
+                resp.Message = "Experience already Exists";
+                resp.Status = HttpStatusCode.NotModified;
+            }
+            return resp;
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+    }
 
 }
