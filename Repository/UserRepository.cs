@@ -90,6 +90,7 @@ public class UserRepository : IUserRepository
         var prex = _context.Previous.Where(p => p.Userid == id).ToList<PreviousExperience>();
         return prex;
     }
+    
 }
 
 
