@@ -24,4 +24,8 @@ public class UtilityController : ControllerBase
             return Accepted(_util.ReturnAllDeciplines(q.Qualification));
     }
 
+    [HttpPut("api/qualdetails")]
+    public QualDetailsEditResponse? Updatequaldetails([FromBody]QualificationDetails qua){
+        return _util.Updatequaldetails(qua);
+    }
 }
