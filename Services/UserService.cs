@@ -34,7 +34,7 @@ public class UserService : IUserService
 
     public async Task<StandardResponce> AddUserInParts(Phase phase, User user)
     {
-        StandardResponce resp = new();
+        StandardResponce resp = new ();
         switch(phase){
             case Phase.Personal:
                 try{
@@ -173,6 +173,16 @@ public class UserService : IUserService
             
             throw;
         }
+    }
+
+      public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev)
+      {
+            return _repository.DeletePreviousExp(prev);
+      }
+
+      public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual)
+    {
+        return _repository.DeleteQualDetails(qual);
     }
 
 }

@@ -71,6 +71,6 @@ public class UtilityService : IUtilityService
         return _respository.Updatequaldetails(qua);
     } 
 
-
+   
 
 }

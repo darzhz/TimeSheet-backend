@@ -69,6 +69,8 @@ public class UtilityRepository : IUtilityRepository
           response.qualificationDetails = null;
         }
         return response;
+
+
     }
 
 
