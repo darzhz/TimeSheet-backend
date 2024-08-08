@@ -34,6 +34,12 @@ public class PreviousExperience
     [Required]
     [NotNull]
     [Column("enddate")]
-    public DateTime?LastDate{get;set;}
+    public DateTime? LastDate{get;set;}
+
+    [Required]
+    [NotNull]
+    [Column("is_delete")]
+    public int Is_Deleted{get;set;} = 0;
+
 
 }

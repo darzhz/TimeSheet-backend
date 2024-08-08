@@ -15,4 +15,6 @@ public interface IUserService
     List<PreviousExperience>? GetPrevExp(int id);
     PreviousExperienceEditResponse UpdatePreviousExp(PreviousExperience pre);
     public QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua);
+    public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev);
+    public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual);
 }

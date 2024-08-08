@@ -49,7 +49,7 @@ public class UserRepository : IUserRepository
     public PreviousExperience? UpdatePreviousExp(PreviousExperience prev){
         try
         {
-            var PrexFromDb = _context.Previous.Find(prev.Id);
+            var PrexFromDb = _context.Previous.Where(p=> p.Id == prev.Id && p.Is_Deleted != 1).FirstOrDefault();
             if(PrexFromDb == null){
                 return null;
             }else{
@@ -65,6 +65,60 @@ public class UserRepository : IUserRepository
         {
             return null;
         }
+    }
+
+    public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev)
+    {
+        // #TODO change edit to delete
+        PreviousExperienceEditResponse? resp= new PreviousExperienceEditResponse();
+        try{
+            var PreviousExperienceFromDb = _context.Previous.Where(p=> p.Id == prev.Id && p.Is_Deleted != 1).FirstOrDefault();
+            if(PreviousExperienceFromDb != null){
+                PreviousExperienceFromDb.Is_Deleted = 1;
+                _context.SaveChanges();
+                
+                resp.Message="Successfully deleted";
+                resp.UpdatedExperience=PreviousExperienceFromDb;
+
+            }
+            else{
+                resp.Message="Data not found";
+                resp.UpdatedExperience=null;
+            }
+        } 
+
+        catch(System.Exception){
+            resp.UpdatedExperience=null;
+            resp.Message="Something went wrong";
+        }
+        return resp;
+    }
+
+    public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual)
+    {
+    QualDetailsEditResponse? resp= new QualDetailsEditResponse();
+    {
+        try{
+            var QualDetailsFromDb=_context.QualificationDetailsEntity.Where(p=> p.Id == qual.Id && p.Is_Deleted != 1).FirstOrDefault();
+            if(QualDetailsFromDb !=null){
+                QualDetailsFromDb.Is_Deleted=1;
+                _context.SaveChanges();
+                 
+                 resp.Message="Sucessfully Deleted";
+                 resp.qualificationDetails=QualDetailsFromDb;
+            }
+            else{
+                resp.Message="Data not found";
+                resp.qualificationDetails=null;
+            }
+        }
+        catch (System.Exception){
+            resp.Message="Something went wrong";
+            resp.qualificationDetails=null;
+
+        }
+    }
+    return resp;
     }
 
     public async Task<User?> UpdateUserAsyc(User user)
@@ -95,7 +149,7 @@ public class UserRepository : IUserRepository
     }
      public async Task<List<QualificationDetails?>?> GetQualificationDetails(int userid)
     {
-        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid).ToListAsync<QualificationDetails?>();
+        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid && qa.Is_Deleted != 1).ToListAsync<QualificationDetails?>();
     }
     public async Task AddUserExp(PreviousExperience pre)
     {
@@ -105,7 +159,7 @@ public class UserRepository : IUserRepository
 
     public List<PreviousExperience>? GetPrevExp(int id)
     {
-        var prex = _context.Previous.Where(p => p.Userid == id).ToList<PreviousExperience>();
+        var prex = _context.Previous.Where(p => p.Userid == id && p.Is_Deleted != 1).ToList<PreviousExperience>();
         return prex;
     }
 

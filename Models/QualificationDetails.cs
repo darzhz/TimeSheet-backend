@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace TimeSheet.Models;
 
@@ -32,5 +34,10 @@ public class QualificationDetails
     [Column("cgpa")]
     [AllowNull]
     public float? Cgpa {get;set;} = null;
+
+    [Required]
+    [NotNull]
+    [Column("is_delete")]
+    public int Is_Deleted {get;set;}=0;
     
 }

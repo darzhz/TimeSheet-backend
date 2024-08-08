@@ -16,5 +16,7 @@ public interface IUserRepository
     PreviousExperience? UpdatePreviousExp(PreviousExperience prev);
     QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua);
 
+    public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev);
+    public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual);
 
 }

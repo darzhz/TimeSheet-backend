@@ -66,5 +66,20 @@ public class UserController : ControllerBase
         return _userService.UpdatePreviousExp(prex);
     }
 
+    [HttpDelete]
+    [Route("/api/preexp")]
+    public PreviousExperienceEditResponse? DeletePreviousExp([FromBody] PreviousExperience prex){
+        return _userService.DeletePreviousExp(prex);
+    }
+    
+
+    [HttpDelete]
+    [Route("/api/EducationalDetails")]
+    public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual){
+        return _userService.DeleteQualDetails(qual);
+    }
+
+
 }
+
 
