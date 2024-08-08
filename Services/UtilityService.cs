@@ -65,12 +65,4 @@ public class UtilityService : IUtilityService
         return payload;
     }
 
-    
-    public QualDetailsEditResponse? Updatequaldetails(QualificationDetails qua)
-    {
-        return _respository.Updatequaldetails(qua);
-    } 
-
-
-
 }

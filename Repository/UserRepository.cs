@@ -108,6 +108,39 @@ public class UserRepository : IUserRepository
         var prex = _context.Previous.Where(p => p.Userid == id).ToList<PreviousExperience>();
         return prex;
     }
+
+    public QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua)
+    {
+        QualDetailsEditResponse? response = new QualDetailsEditResponse();
+        try
+        { 
+            var qualfromdb =_context.QualificationDetailsEntity.Find(qua.Id);
+            if(qualfromdb != null){
+                qualfromdb.Qualification=qua.Qualification;
+                qualfromdb.Decipline=qua.Decipline;
+                qualfromdb.Percentage=qua.Percentage;
+                qualfromdb.YearOfPassing=qua.YearOfPassing;
+                qualfromdb.university=qua.university;
+                qualfromdb.Cgpa=qua.Cgpa;  
+
+                _context.SaveChanges(); 
+
+                response.Message = "Successfully Updated";
+                response.qualificationDetails = qualfromdb; 
+            }
+            else{
+                response.Message = "No data found to update";
+                response.qualificationDetails = null;
+            }
+            
+        }
+        catch(Exception ex)
+        {
+          response.Message = ex.Message;
+          response.qualificationDetails = null;
+        }
+        return response;
+    }
     
 }
 

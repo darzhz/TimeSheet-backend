@@ -14,5 +14,7 @@ public interface IUserRepository
     Task AddQualificationDetails(QualificationDetails qa);
     Task<List<QualificationDetails?>?> GetQualificationDetails(int userid);
     PreviousExperience? UpdatePreviousExp(PreviousExperience prev);
+    QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua);
+
 
 }

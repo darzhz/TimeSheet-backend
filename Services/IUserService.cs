@@ -14,4 +14,5 @@ public interface IUserService
     Task<StandardResponce> AddUserExp(PreviousExperience ex);
     List<PreviousExperience>? GetPrevExp(int id);
     PreviousExperienceEditResponse UpdatePreviousExp(PreviousExperience pre);
+    public QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua);
 }
