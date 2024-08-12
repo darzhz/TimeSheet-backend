@@ -77,7 +77,7 @@ public class UserRepository : IUserRepository
                 PreviousExperienceFromDb.Is_Deleted = 1;
                 _context.SaveChanges();
                 
-                resp.Message="Successfully deleted";
+                resp.Message="Your Previous experience has been deleted successfully.";
                 resp.UpdatedExperience=PreviousExperienceFromDb;
 
             }

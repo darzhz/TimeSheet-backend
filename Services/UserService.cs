@@ -159,7 +159,7 @@ public class UserService : IUserService
         {
             var PreviousEx = _repository.UpdatePreviousExp(pre);
             if(PreviousEx != null){
-                resp.Message = "Successfully Updated Experience";
+                resp.Message = "Your Previous experience has been updated successfully.";
                 resp.UpdatedExperience = PreviousEx;
                 resp.Status = HttpStatusCode.OK;
             }else{
