@@ -149,7 +149,7 @@ public class UserRepository : IUserRepository
     }
      public async Task<List<QualificationDetails?>?> GetQualificationDetails(int userid)
     {
-        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid && qa.Is_Deleted != 1).ToListAsync<QualificationDetails?>();
+        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid && qa.Is_Deleted != 1).OrderByDescending(x=>x.Id).ToListAsync<QualificationDetails?>();
     }
     public async Task AddUserExp(PreviousExperience pre)
     {
@@ -159,8 +159,41 @@ public class UserRepository : IUserRepository
 
     public List<PreviousExperience>? GetPrevExp(int id)
     {
-        var prex = _context.Previous.Where(p => p.Userid == id && p.Is_Deleted != 1).ToList<PreviousExperience>();
+        var prex = _context.Previous.Where(p => p.Userid == id && p.Is_Deleted != 1).OrderByDescending(x=>x.Id).ToList<PreviousExperience>();
         return prex;
+    }
+
+    public QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua)
+    {
+        QualDetailsEditResponse? response = new QualDetailsEditResponse();
+        try
+        { 
+            var qualfromdb =_context.QualificationDetailsEntity.Find(qua.Id);
+            if(qualfromdb != null){
+                qualfromdb.Qualification=qua.Qualification;
+                qualfromdb.Decipline=qua.Decipline;
+                qualfromdb.Percentage=qua.Percentage;
+                qualfromdb.YearOfPassing=qua.YearOfPassing;
+                qualfromdb.university=qua.university;
+                qualfromdb.Cgpa=qua.Cgpa;  
+
+                _context.SaveChanges(); 
+
+                response.Message = "Successfully Updated";
+                response.qualificationDetails = qualfromdb; 
+            }
+            else{
+                response.Message = "No data found to update";
+                response.qualificationDetails = null;
+            }
+            
+        }
+        catch(Exception ex)
+        {
+          response.Message = ex.Message;
+          response.qualificationDetails = null;
+        }
+        return response;
     }
     
 }

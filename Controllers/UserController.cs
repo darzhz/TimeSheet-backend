@@ -41,7 +41,11 @@ public class UserController : ControllerBase
     public async Task<StandardListResponce> GetEducationDetails(int userid){
        return  await _userService.GetQualificationDetails(userid);
     }
-    
+    [HttpPut]
+    [Route("/api/EducationalDetails")]
+    public QualDetailsEditResponse? UpdateEducationDetails(QualificationDetails Qd){
+       return  _userService.UpdatEducationdetails(Qd);
+    }
 
     [HttpPost]
     [Route("/api/preexp")]

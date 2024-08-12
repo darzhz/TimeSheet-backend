@@ -174,6 +174,10 @@ public class UserService : IUserService
             throw;
         }
     }
+     public QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua)
+    {
+        return _repository.UpdatEducationdetails(qua);
+    } 
 
       public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev)
       {
