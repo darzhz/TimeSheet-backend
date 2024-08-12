@@ -149,7 +149,7 @@ public class UserRepository : IUserRepository
     }
      public async Task<List<QualificationDetails?>?> GetQualificationDetails(int userid)
     {
-        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid && qa.Is_Deleted != 1).ToListAsync<QualificationDetails?>();
+        return await _context.QualificationDetailsEntity.Where(qa => qa.Userid == userid && qa.Is_Deleted != 1).OrderByDescending(x=>x.Id).ToListAsync<QualificationDetails?>();
     }
     public async Task AddUserExp(PreviousExperience pre)
     {
@@ -159,7 +159,7 @@ public class UserRepository : IUserRepository
 
     public List<PreviousExperience>? GetPrevExp(int id)
     {
-        var prex = _context.Previous.Where(p => p.Userid == id && p.Is_Deleted != 1).ToList<PreviousExperience>();
+        var prex = _context.Previous.Where(p => p.Userid == id && p.Is_Deleted != 1).OrderByDescending(x=>x.Id).ToList<PreviousExperience>();
         return prex;
     }
 
