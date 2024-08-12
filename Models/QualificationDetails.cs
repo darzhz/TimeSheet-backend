@@ -19,7 +19,7 @@ public class QualificationDetails
     public string? Qualification {get;set;}
 
     [Column("decipline")]
-    public string? Decipline {get;set;}
+    public string? Discipline {get;set;}
 
     [Column("university")]
     public string? university {get;set;}

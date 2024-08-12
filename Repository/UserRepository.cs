@@ -171,7 +171,7 @@ public class UserRepository : IUserRepository
             var qualfromdb =_context.QualificationDetailsEntity.Find(qua.Id);
             if(qualfromdb != null){
                 qualfromdb.Qualification=qua.Qualification;
-                qualfromdb.Decipline=qua.Decipline;
+                qualfromdb.Discipline=qua.Discipline;
                 qualfromdb.Percentage=qua.Percentage;
                 qualfromdb.YearOfPassing=qua.YearOfPassing;
                 qualfromdb.university=qua.university;
