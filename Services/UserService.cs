@@ -104,6 +104,8 @@ public class UserService : IUserService
             }else{
                 if(UserfromDb.Password == user.Password){
                 resp.Message = "User LoggedIn successfully";
+                resp.User = UserfromDb.Fname;
+                resp.UserId = UserfromDb.UserId;
                 resp.Token = GenerateJwtToken(user.Email);
                 return resp;
                 }else{
