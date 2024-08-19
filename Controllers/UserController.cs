@@ -79,6 +79,14 @@ public class UserController : ControllerBase
         return _userService.DeleteQualDetails(qual);
     }
 
+    
+    [HttpGet]
+    [Route("/api/ReportingManager")]
+     public List<UserDto> GetUserRank(){
+        return _userService.GetUserRank();
+    }
+    
+    
 
 }
 

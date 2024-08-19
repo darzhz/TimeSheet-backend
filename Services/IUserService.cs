@@ -17,4 +17,7 @@ public interface IUserService
     public QualDetailsEditResponse? UpdatEducationdetails(QualificationDetails qua);
     public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev);
     public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual);
+    public List<UserDto> GetUserRank();
+
+
 }

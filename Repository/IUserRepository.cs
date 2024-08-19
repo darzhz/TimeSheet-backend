@@ -1,4 +1,5 @@
 ﻿using TimeSheet.Models;
+using TimeSheet.Models.Payload;
 
 namespace TimeSheet.Repository;
 
@@ -6,7 +7,6 @@ public interface IUserRepository
 {
     Task<User?> GetUserByIdAsyc(int id);
     Task<User?> GetUserByEmailAsyc(string email);
-    Task<IEnumerable<User>> GetAllUsersAsyc();
     Task AddUserAsyc(User user);
     Task<User?> UpdateUserAsyc(User user);
     Task AddUserExp(PreviousExperience pre);
@@ -18,5 +18,6 @@ public interface IUserRepository
 
     public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev);
     public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual);
+    public List<UserDto> GetUserRank();
 
 }

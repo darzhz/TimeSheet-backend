@@ -191,5 +191,11 @@ public class UserService : IUserService
         return _repository.DeleteQualDetails(qual);
     }
 
+    
+    public List<UserDto> GetUserRank()
+    {
+        return _repository.GetUserRank();
+    }
+
 }
 

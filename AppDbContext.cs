@@ -12,4 +12,13 @@ public class AppDbContext : DbContext
     public DbSet<QualificationModel> QualificationEntity {get;set;}
     public DbSet<QualificationDetails> QualificationDetailsEntity {get;set;}
     public DbSet<PreviousExperience> Previous {get;set;}
+    public DbSet<Usernationality> Nationality{get;set;}
+    public DbSet<UserDivOfEmolyee>DivOfEmolyees{get;set;}
+    
+    public DbSet<UserRole>Role{get;set;}
+    
+
+
+
+
 }

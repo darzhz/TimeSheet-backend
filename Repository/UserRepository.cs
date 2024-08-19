@@ -1,6 +1,8 @@
 ﻿using System.Data.Common;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TimeSheet.Models;
+using TimeSheet.Models.Payload;
 
 
 namespace TimeSheet.Repository;
@@ -26,12 +28,6 @@ public class UserRepository : IUserRepository
     }
     
 
-
-    public async Task<IEnumerable<User>> GetAllUsersAsyc()
-    {
-       return await _context.UsersEntity.ToListAsync();
-    }
-
     public async Task<User?> GetUserByEmailAsyc(string email)
     {
         try{
@@ -39,6 +35,7 @@ public class UserRepository : IUserRepository
         }catch(InvalidOperationException){
             return null;
         }
+        
     }
 
     public async Task<User?> GetUserByIdAsyc(int id)
@@ -195,8 +192,23 @@ public class UserRepository : IUserRepository
         }
         return response;
     }
+    public List<UserDto> GetUserRank()
+{
+    return _context.UsersEntity
+        .Where(u => u.Rank != "executive" && u.IsDeleted != 1)
+        .Select(u => new UserDto 
+        { 
+            UserId = u.UserId, 
+            Email = u.Email 
+        })
+        .ToList();
+}
+    
+
+    
     
 }
+
 
 
 
