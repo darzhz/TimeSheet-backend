@@ -7,7 +7,7 @@ public interface IUserService
 {
     string GenerateJwtToken(String userid);
     Task<AuthResponce> PerformAuthentication(UserLogin user);
-    Task<StandardResponce> AddUserInParts(Phase phase,User user);
+    public Task<StandardResponce> AddUserInParts(User user);
 
     Task<StandardResponce> AddQualificationDetails(QualificationDetails qa);
     Task<StandardListResponce> GetQualificationDetails(int userid);
@@ -18,6 +18,12 @@ public interface IUserService
     public PreviousExperienceEditResponse? DeletePreviousExp(PreviousExperience prev);
     public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual);
     public List<UserDto> GetUserRank();
+
+      public List<Rank>?GetRanks();
+      public List<Division>?GetDivisions();
+       public List<Role>?GetRoles();
+        public List<Nationality>?GetNationalities();
+
 
 
 }

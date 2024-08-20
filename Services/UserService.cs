@@ -32,11 +32,9 @@ public class UserService : IUserService
 
     }
 
-    public async Task<StandardResponce> AddUserInParts(Phase phase, User user)
+    public async Task<StandardResponce> AddUserInParts(User user)
     {
         StandardResponce resp = new ();
-        switch(phase){
-            case Phase.Personal:
                 try{
                     if(await CheckUserExists(user)){
                         //  await _repository.UpdateUserAsyc(user);
@@ -54,14 +52,8 @@ public class UserService : IUserService
                     resp.User = null;
                     resp.status = HttpStatusCode.ServiceUnavailable;
                 }
-            break;
-            default:
-                resp.Message = "That Field doesnot exist in the system please re verify";
-                resp.User = null;
-            break;
+                return resp;
         }
-        return  resp;
-    }
     public async Task<StandardResponce> AddQualificationDetails(QualificationDetails qa) {
         StandardResponce resp = new();
         try{
@@ -148,6 +140,22 @@ public class UserService : IUserService
             return resp;
         }
     }
+
+
+      public List<Nationality>?GetNationalities()
+      {
+            return _repository.GetNationalities();
+        }
+          public List<Rank>?GetRanks(){
+            return _repository.GetRanks();
+          }
+      public List<Division>?GetDivisions(){
+        return _repository.GetDivisions();
+      }
+       public List<Role>?GetRoles(){
+        return _repository.GetRoles();
+       }
+          
 
 
     public List<PreviousExperience>? GetPrevExp(int id)

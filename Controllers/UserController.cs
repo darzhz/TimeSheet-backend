@@ -16,10 +16,10 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/adduserinprogression/{phase}")]
-    public async Task<StandardResponce> AddUserInProgression(Phase phase, [FromBody] User user)
+    [Route("/api/addUserPersonalDetails")]
+    public async Task<StandardResponce> AddUserInProgression([FromBody] User user)
     {
-        return await _userService.AddUserInParts(phase,user);
+        return await _userService.AddUserInParts(user);
     } 
 
 
@@ -85,7 +85,31 @@ public class UserController : ControllerBase
      public List<UserDto> GetUserRank(){
         return _userService.GetUserRank();
     }
-    
+     [HttpGet("/api/GetNationality")]
+    public List<Nationality>?GetNationalities()
+    {
+        return _userService.GetNationalities();
+    }
+[HttpGet("/api/GetRanks")]
+      public List<Rank>?GetRanks(){
+         return _userService.GetRanks();
+      }
+      [HttpGet("/api/GetDivisions")]
+      public List<Division>?GetDivisions(){
+         return _userService.GetDivisions();
+      }
+[HttpGet("/api/GetRoles")]
+       public List<Role>?GetRoles(){
+         return _userService.GetRoles();
+       }
+   
+
+
+
+
+
+
+
     
 
 }
