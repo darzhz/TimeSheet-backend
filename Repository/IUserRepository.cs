@@ -7,6 +7,7 @@ public interface IUserRepository
 {
     Task<User?> GetUserByIdAsyc(int id);
     Task<User?> GetUserByEmailAsyc(string email);
+    User? GetUserByEmployeeId(string emply_id);
     Task AddUserAsyc(User user);
     Task<User?> UpdateUserAsyc(User user);
     Task AddUserExp(PreviousExperience pre);

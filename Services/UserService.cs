@@ -31,6 +31,19 @@ public class UserService : IUserService
         }
 
     }
+    public bool CheckUniqueEmployeeId(User user)
+    {
+        try
+        {
+            var existingUser =  _repository.GetUserByEmployeeId(user.EmployeeID);
+            return existingUser != null?true:false;
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+
+    }
 
     public async Task<StandardResponce> AddUserInParts(User user)
     {
@@ -41,6 +54,9 @@ public class UserService : IUserService
                          resp.Message = $"Email Already Exists";
                          resp.status = HttpStatusCode.UnprocessableEntity;
 
+                    }else if(CheckUniqueEmployeeId(user)){
+                        resp.Message = $"Employee Id Already Exists";
+                        resp.status = HttpStatusCode.UnprocessableEntity;
                     }else{
                          await _repository.AddUserAsyc(user);
                          resp.Message = $"successfully added user details";

@@ -69,6 +69,15 @@ public class UserRepository : IUserRepository
         }
         
     }
+    public User? GetUserByEmployeeId(string emply_id)
+    {
+        try{
+            return  _context.UsersEntity.Where(us => us.EmployeeID == emply_id).SingleOrDefault();
+        }catch(InvalidOperationException){
+            return null;
+        }
+        
+    }
 
     public async Task<User?> GetUserByIdAsyc(int id)
     {
