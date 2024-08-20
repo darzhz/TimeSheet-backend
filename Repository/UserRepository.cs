@@ -26,6 +26,38 @@ public class UserRepository : IUserRepository
         _context.UsersEntity.Add(user);
         await _context.SaveChangesAsync();
     }
+
+     public List<Nationality>?GetNationalities()
+    {
+        var nat=_context.Nation.ToList();
+        return nat;
+    }
+    //role
+     public List<Role>?GetRoles()
+    {
+        var aa=_context.roles.ToList();
+        return aa;
+    }
+    //rank
+     public List<Rank>?GetRanks()
+     
+    {
+        var bb=_context.ranks.ToList();
+        return bb;
+    }
+    //division
+     public List<Division>?GetDivisions()
+    {
+        var cc=_context.divisions.ToList();
+        return cc;
+    }
+    //reporting managers
+    // public List<ReportManager>?GetManagers()
+     
+    // {
+    //     var dd=_context.ReportManagers.ToList();
+    //     return dd;
+    // }
     
 
     public async Task<User?> GetUserByEmailAsyc(string email)
@@ -199,7 +231,7 @@ public class UserRepository : IUserRepository
         .Select(u => new UserDto 
         { 
             UserId = u.UserId, 
-            Email = u.Email 
+            Name = u.Fname 
         })
         .ToList();
 }

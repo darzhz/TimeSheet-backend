@@ -20,4 +20,11 @@ public interface IUserRepository
     public QualDetailsEditResponse?DeleteQualDetails(QualificationDetails qual);
     public List<UserDto> GetUserRank();
 
+      public List<Rank>?GetRanks();
+      public List<Division>?GetDivisions();
+       public List<Role>?GetRoles();
+    //    public List<ReportManager>?GetManagers();
+     public List<Nationality>?GetNationalities();
+
+
 }
